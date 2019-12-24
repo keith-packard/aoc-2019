@@ -31,8 +31,14 @@ def run(noun, verb):
     program[2] = verb
     while eval(ip):
         ip += 4
-    print("noun %d verb %d 100 * noun + verb %d output %d" % (noun, verb, 100 * noun + verb, program[0]))
     return program[0]
+
+def show(noun, verb, result):
+    print("noun %d verb %d 100 * noun + verb %d output %d" % (noun, verb, 100 * noun + verb, result))
+
+def runone(noun, verb):
+    result = run(noun, verb)
+    show (noun, verb, result)
 
 def index(s,c):
     i = 0
@@ -60,19 +66,20 @@ def read():
     global program
     while True:
         line = input("> ")
-        if not line:
+        if not line or line == 'done':
             break
         scanline(line)
-    print("program %d" % (program,))
+    print("program %r" % (program,))
 
 def search(target):
     global program
     for noun in range(100):
         for verb in range(100):
             if run(noun, verb) == target:
+                show(noun, verb, target)
                 return
 
 read()
 orig_program = program[:]
-run(12, 2)
+runone(12, 2)
 search(19690720)
